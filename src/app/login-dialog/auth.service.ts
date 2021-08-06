@@ -19,7 +19,6 @@ export interface AuthResponseData {
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
-  // user = new BehaviorSubject<UserSigne>(null);
   expirationDurationRef: any;
   constructor(
     private http: HttpClient,
@@ -43,14 +42,12 @@ export class AuthService {
       new Date(userData._tokenExpirationDate)
     );
     if (loadedUser.token) {
-      // this.user.next(loadedUser);
-
       this.store.dispatch(
         new AuthActions.AuthenticateSuccess({
           email: loadedUser.email,
           userId: loadedUser.id,
           token: loadedUser.token,
-          expirationDate: new Date(userData._tokenExpirationDate)
+          expirationDate: new Date(userData._tokenExpirationDate),
         })
       );
 
@@ -68,12 +65,12 @@ export class AuthService {
         {
           email: email,
           password: password,
-          returnSecureToken: true
+          returnSecureToken: true,
         }
       )
       .pipe(
         catchError(this.handleError),
-        tap(resData => {
+        tap((resData) => {
           this.handleAuthentication(
             resData.email,
             resData.localId,
@@ -85,7 +82,6 @@ export class AuthService {
   }
 
   logout() {
-    // this.user.next(null);
     this.store.dispatch(new AuthActions.Logout());
 
     localStorage.removeItem("userData");
@@ -97,7 +93,6 @@ export class AuthService {
     this.expirationDurationRef = setTimeout(() => {
       this.logout();
     }, expirationDuration);
-    console.log(expirationDuration);
   }
 
   public login(email: string, password: string) {
@@ -107,12 +102,12 @@ export class AuthService {
         {
           email: email,
           password: password,
-          returnSecureToken: true
+          returnSecureToken: true,
         }
       )
       .pipe(
         catchError(this.handleError),
-        tap(resData => {
+        tap((resData) => {
           this.handleAuthentication(
             resData.email,
             resData.localId,
@@ -131,15 +126,13 @@ export class AuthService {
   ) {
     const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
     const user = new UserSigne(email, localId, idToken, expirationDate);
-    
-    // this.user.next(user);
 
     this.store.dispatch(
       new AuthActions.AuthenticateSuccess({
         email: email,
         userId: localId,
         token: idToken,
-        expirationDate: expirationDate
+        expirationDate: expirationDate,
       })
     );
 

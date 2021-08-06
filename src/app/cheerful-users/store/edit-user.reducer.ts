@@ -5,7 +5,7 @@ export interface State {
 }
 
 const initState: State = {
-  user: null
+  user: null,
 };
 
 export function EditUserReducer(
@@ -14,18 +14,16 @@ export function EditUserReducer(
 ) {
   switch (action.type) {
     case editUserActions.EDIT_USER_START:
-        console.log("Hello from Edit User Start");
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
       };
     case editUserActions.EDIT_USER_END:
-            console.log("Hello from Edit User End");
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
       };
-    default: 
-        return state;  
+    default:
+      return state;
   }
 }

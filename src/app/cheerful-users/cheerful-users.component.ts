@@ -8,7 +8,7 @@ import {
   Component,
   OnInit,
   ViewChild,
-  OnDestroy
+  OnDestroy,
 } from "@angular/core";
 import { HttpService } from "../shared/http.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
@@ -18,7 +18,7 @@ import { __values } from "tslib";
 import {
   AngularFireStorage,
   AngularFireStorageReference,
-  AngularFireUploadTask
+  AngularFireUploadTask,
 } from "angularfire2/storage";
 import * as firebase from "firebase/app";
 import "firebase/database";
@@ -35,10 +35,11 @@ declare var $: any;
 @Component({
   selector: "app-cheerful-users",
   templateUrl: "./cheerful-users.component.html",
-  styleUrls: ["./cheerful-users.component.css"]
+  styleUrls: ["./cheerful-users.component.css"],
 })
 export class CheerfulUsersComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @ViewChild(AlertDialogComponent, { static: false })
   public dialog: AlertDialogComponent;
   @ViewChild(EditUserDialogComponent, { static: false })
@@ -66,24 +67,20 @@ export class CheerfulUsersComponent
   ) {}
 
   ngOnInit() {
-    // this.authService.user.subscribe(user => {
     this.store
       .select("auth")
       .pipe(
-        map(authData => {
-          console.log("authData from select auth: ", authData);
+        map((authData) => {
           return authData.user;
         })
       )
-      .subscribe(user => {
+      .subscribe((user) => {
         if (user) {
           this.users = [];
           this.httpService
             .getUserDataFromUrl(this.url_users)
-            .subscribe(response => {
-              // console.log("Response Users from firebase: ", response);
+            .subscribe((response) => {
               for (let key in response) {
-                // console.log('Key: ',key ,'response with key', response[key]);
                 this.users.push({
                   id: key,
                   name: response[key].name,
@@ -91,14 +88,13 @@ export class CheerfulUsersComponent
                   phone: response[key].phone,
                   photo: response[key].photo,
                   photo_path: response[key].photo_path,
-                  position: response[key].position
+                  position: response[key].position,
                 });
               }
-              // console.log(this.users);
             });
           this.httpService
             .getUserDataFromUrl(this.url_positions)
-            .subscribe(response => {
+            .subscribe((response) => {
               for (let key in response) {
                 this.userPositions.push(response[key]);
               }
@@ -109,19 +105,17 @@ export class CheerfulUsersComponent
     this.endEditUserSub = this.store
       .select("editUser")
       .pipe(
-        map(editUserData => {
-          console.log("select edit user: ", editUserData);
+        map((editUserData) => {
           return editUserData.user;
         })
       )
-      .subscribe(user => {
-        console.log("subscribe in editUser user: ", user);
+      .subscribe((user) => {
         if (user) {
           this.firebaseService.updateUserEntryInFb(user);
 
           this.firebaseService
             .updateUserEntryInUsersArray(user)
-            .then(snapshot => {
+            .then((snapshot) => {
               this.users[this.currentUserIndex] = snapshot.val();
             });
         }
@@ -133,7 +127,7 @@ export class CheerfulUsersComponent
       phone: new FormControl("", [Validators.required /*this.phoneValidator*/]),
       position: new FormControl(null, Validators.required),
       upload: new FormControl(null, [Validators.required]),
-      pathToFileUpload: new FormControl(null, Validators.required)
+      pathToFileUpload: new FormControl(null, Validators.required),
     });
   }
 
@@ -143,8 +137,7 @@ export class CheerfulUsersComponent
       document.getElementById("phone")
     );
     this.uploadFileEl = document.getElementById("upload");
-    this.uploadFileEl.addEventListener("change", function(event: Event) {
-      // console.log("Event elemnt target: ", event);
+    this.uploadFileEl.addEventListener("change", function (event: Event) {
       if (self.signupForm.get("upload").valid) {
         self.signupForm
           .get("pathToFileUpload")
@@ -154,20 +147,6 @@ export class CheerfulUsersComponent
       }
     });
   }
-
-  // uploadFileValidator(control: FormControl): { [s: string]: boolean } {
-  //   const el = document.getElementById("upload");
-  //   if (
-  //     el["files"].length === 0 &&
-  //     (el["files"][0].size > 5242880 ||
-  //       el["files"][0].type.indexOf("png") === -1)
-  //   ) {
-  //     return { invalidPhoto: true };
-  //   } else {
-  //     return null;
-  //   }
-  // }
-  // file = this.uploadFileEl["files"][0];
 
   ref: AngularFireStorageReference;
   task: AngularFireUploadTask;
@@ -187,24 +166,22 @@ export class CheerfulUsersComponent
           phone: this.signupForm.get("phone").value,
           photo: photoData.photo_url,
           photo_path: photoData.photo_path,
-          position: this.signupForm.get("position").value
+          position: this.signupForm.get("position").value,
         })
         .subscribe(
-          response => {
+          (response) => {
             if (response) {
-              console.log("Response was succeed!!!", response);
               firebase
                 .database()
                 .ref("users/" + response["name"])
-                .on("value", snap => {
-                  //console.log("snap from firebase: ", snap);
+                .on("value", (snap) => {
                   this.users.push(snap.val());
                 });
               this.dialog.openDialog();
               this.signupForm.reset();
             }
           },
-          error => {
+          (error) => {
             console.log(
               "Unknown Error Happened in posting data user to the Firebase!!!",
               error
@@ -215,7 +192,6 @@ export class CheerfulUsersComponent
   }
   onEditUser(index: number) {
     this.currentUserIndex = index;
-    // this.cheerfulUserService.startedEdititngUser.next({ ...this.users[index] });
     this.store.dispatch(
       new EditUserActions.editUserStart({ ...this.users[index] })
     );

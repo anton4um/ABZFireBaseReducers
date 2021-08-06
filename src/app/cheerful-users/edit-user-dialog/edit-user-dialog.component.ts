@@ -24,13 +24,13 @@ export interface DialogData {
 
 @Component({
   selector: "app-edit-user-dialog",
-  templateUrl: "./edit-user-dialog.component.html"
+  templateUrl: "./edit-user-dialog.component.html",
 })
 export class EditUserDialogComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
   public openDialog(): void {
     const dialogRef = this.dialog.open(EditUserDialogOverviewDialog, {
-      width: "250px"
+      width: "250px",
     });
   }
 
@@ -39,10 +39,11 @@ export class EditUserDialogComponent implements OnInit {
 
 @Component({
   selector: "app-edit-user-dialog-overview-dialog",
-  templateUrl: "./edit-user-dialog-overview-dialog.html"
+  templateUrl: "./edit-user-dialog-overview-dialog.html",
 })
 export class EditUserDialogOverviewDialog
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy
+{
   // isInLoginMode = true;
   userPositions: UserPosition[] = [];
   editUserForm: FormGroup;
@@ -65,42 +66,40 @@ export class EditUserDialogOverviewDialog
       name: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       phone: new FormControl(null, [Validators.required]),
-      position: new FormControl(null, [Validators.required])
+      position: new FormControl(null, [Validators.required]),
     });
     this.httpService
       .getUserDataFromUrl("https://abztesttask.firebaseio.com/positions.json")
-      .subscribe(positions => {
+      .subscribe((positions) => {
         this.userPositions = positions as UserPosition[];
       });
     this.startedEdititngUserSub = this.store
       .select("editUser")
       .pipe(
-        map(userData => {
+        map((userData) => {
           return userData.user;
         })
       )
-      .subscribe(user => {
-        // console.log("our user from page: ", user);
+      .subscribe((user) => {
         this.userPhotoViewer = user.photo;
         this.user = user;
         this.editUserForm.patchValue({
           name: user.name,
           email: user.email,
-          phone: user.phone
+          phone: user.phone,
         });
         this.editUserForm.get("position").setValue(user.position);
       });
   }
   photoData: { photo_path: string; photo_url: string } = {
     photo_path: null,
-    photo_url: null
+    photo_url: null,
   };
   async onSubmit() {
     this.isLoading = true;
 
     this.photoData.photo_path = this.user.photo_path;
     this.photoData.photo_url = this.user.photo;
-    // console.log("first photoData: ", this.photoData);
     if (this.uploadFileEL["files"][0]) {
       this.photoData = await this.firebaseService.uploadUserFileToFirebase(
         this.uploadFileEL["files"][0]
@@ -114,9 +113,9 @@ export class EditUserDialogOverviewDialog
       phone: this.editUserForm.get("phone").value,
       photo: (await this.photoData).photo_url,
       photo_path: (await this.photoData).photo_path,
-      position: this.editUserForm.get("position").value
+      position: this.editUserForm.get("position").value,
     };
-    this.store.dispatch(new EditUserActions.editUserEnd({...sendUser}));
+    this.store.dispatch(new EditUserActions.editUserEnd({ ...sendUser }));
     this.editUserForm.reset();
     this.dialogRef.close();
   }
@@ -128,7 +127,7 @@ export class EditUserDialogOverviewDialog
     const self = this;
     this.uploadFileEL = document.getElementById("uploadPhotoEditUser");
 
-    this.uploadFileEL.addEventListener("change", function(event) {
+    this.uploadFileEL.addEventListener("change", function (event) {
       let reader = new FileReader();
       reader.readAsDataURL(event.target["files"][0]);
       reader.onload = () => {

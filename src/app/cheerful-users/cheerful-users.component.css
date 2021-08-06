@@ -33,8 +33,7 @@ input[name="pathToFileUpload"] {
   text-overflow: ellipsis;
   overflow: scroll;
 }
-.user-data-frame /* for limitation of user data frame */
- {
+.user-data-frame /* for limitation of user data frame */ {
   height: 200px;
   width: 250px;
   margin: 0 auto;

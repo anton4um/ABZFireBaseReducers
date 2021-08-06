@@ -1,6 +1,4 @@
-<h4 mat-dialog-title class="text-center">
-  Please SignUp or Login
-</h4>
+<h4 mat-dialog-title class="text-center">Please SignUp or Login</h4>
 <div class="text-center" *ngIf="isLoading">
   <app-loading-spinner></app-loading-spinner>
 </div>
@@ -10,8 +8,7 @@
     <button
       (click)="uploadUserPhotoEl.click()"
       class="btn btn-danger d-block m-auto"
-      style="width: 100px;     height: 25px;
-      font-size: 10px; margin: 0 auto;"
+      style="width: 100px; height: 25px; font-size: 10px; margin: 0 auto"
       *ngIf="!userPhotoViewer"
     >
       Add Photo
@@ -26,12 +23,11 @@
       <img
         [src]="userPhotoViewer"
         class="mb-3"
-        style="height: 100px; width: 100px;"
+        style="height: 100px; width: 100px"
       />
       <button
         class="btn btn-danger d-block"
-        style="width: 100px;     height: 25px;
-          font-size: 10px; margin: 0 auto;"
+        style="width: 100px; height: 25px; font-size: 10px; margin: 0 auto"
         type="button"
         (click)="onRemovePhoto(user.photo_path)"
       >
@@ -110,9 +106,7 @@
       <button mat-button type="submit" [disabled]="!editUserForm.valid">
         Save
       </button>
-      <button mat-button type="button" (click)="dialogCencel()">
-        Cancel
-      </button>
+      <button mat-button type="button" (click)="dialogCencel()">Cancel</button>
     </div>
   </form>
 </div>

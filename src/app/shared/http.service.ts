@@ -19,15 +19,13 @@ export class HttpService {
 
   postUserDataToUrl(url: string, formData: any) {
     return this.store.select("auth").pipe(
-       //this.authService.user.pipe(
       take(1),
-      map(authData => {
+      map((authData) => {
         return authData.user;
       }),
       exhaustMap((user: UserSigne) => {
-        // console.log('User Token with GET: ', user.token, ' Form Data: ', formData);
         return this.http.post(url, formData, {
-          params: new HttpParams().set("auth", user.token)
+          params: new HttpParams().set("auth", user.token),
         });
       })
     );
@@ -35,13 +33,11 @@ export class HttpService {
 
   getUserDataFromUrl(url) {
     return this.store.select("auth").pipe(
-       //this.authService.user.pipe(
       take(1),
-      map(authData => authData.user),
+      map((authData) => authData.user),
       exhaustMap((user: UserSigne) => {
-        // console.log('Searchig for ID Token: ', user);
         return this.http.get(url, {
-          params: new HttpParams().set("auth", user.token)
+          params: new HttpParams().set("auth", user.token),
         });
       })
     );

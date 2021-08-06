@@ -19,18 +19,14 @@ export interface DialogData {
 @Component({
   selector: "app-login-dialog",
   templateUrl: "./login-dialog.component.html",
-  styleUrls: ["./login-dialog.component.css"]
+  styleUrls: ["./login-dialog.component.css"],
 })
 export class LoginDialogComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
   public openDialog(): void {
     const dialogRef = this.dialog.open(LoginDialogOverviewDialog, {
-      width: "350px"
+      width: "350px",
     });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log("The dialog was closed, the result is: ", result);
-    // });
   }
 
   ngOnInit() {}
@@ -38,7 +34,7 @@ export class LoginDialogComponent implements OnInit {
 
 @Component({
   selector: "app-login-dialog-overview-dialog",
-  templateUrl: "./login-dialog-overview-dialog.html"
+  templateUrl: "./login-dialog-overview-dialog.html",
 })
 export class LoginDialogOverviewDialog implements OnInit {
   @ViewChild(SnackBarMainComponent, { static: false })
@@ -58,10 +54,10 @@ export class LoginDialogOverviewDialog implements OnInit {
   ngOnInit() {
     this.authForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, Validators.required)
+      password: new FormControl(null, Validators.required),
     });
 
-    this.store.select("auth").subscribe(authState => {
+    this.store.select("auth").subscribe((authState) => {
       this.isLoading = authState.isLoading;
       this.error = authState.authError;
     });
@@ -76,33 +72,13 @@ export class LoginDialogOverviewDialog implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
     if (this.isInLoginMode) {
-      // this.isLoading = true;
-      // this.authObs = this.authService.login(email, password);
       this.store.dispatch(
         new AuthActions.LoginStart({ email: email, password: password })
       );
     } else {
-      // this.isLoading = true;
-      // this.authObs = this.authService.signup(email, password);
       this.store.dispatch(
         new AuthActions.SignupStart({ email: email, password: password })
       );
     }
-
-    // this.authObs.subscribe(
-    //   responseData => {
-    //     // console.log(responseData);
-    //     this.snackBarAlert.openSnackBar();
-    //     this.isLoading = false;
-    //     form.reset();
-    //     this.dialogRef.close();
-    //   },
-    //   errorMessage => {
-    //     console.log("Some Error: ", errorMessage);
-    //     this.error = errorMessage;
-    //     this.isLoading = false;
-    //     form.reset();
-    //   }
-    // );
   }
 }

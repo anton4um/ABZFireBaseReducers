@@ -29,11 +29,11 @@ import { MatListModule } from "@angular/material/list";
 import { MatDialogModule } from "@angular/material/dialog";
 import {
   AlertDialogComponent,
-  DialogOverviewExampleDialog
+  DialogOverviewExampleDialog,
 } from "./alert-dialog/alert-dialog.component";
 import {
   LoginDialogComponent,
-  LoginDialogOverviewDialog
+  LoginDialogOverviewDialog,
 } from "./login-dialog/login-dialog.component";
 import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner.component";
 
@@ -41,16 +41,19 @@ import { AngularFireModule } from "angularfire2";
 import { AngularFireStorageModule } from "angularfire2/storage";
 import {
   EditUserDialogComponent,
-  EditUserDialogOverviewDialog
+  EditUserDialogOverviewDialog,
 } from "./cheerful-users/edit-user-dialog/edit-user-dialog.component";
 import { LoginSpinner } from "./shared/login-spinner/login-spinner.component";
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {SnackBarMainComponent, SnackBarComponent} from './shared/snackbar/snack-bar.component';
-import {StoreModule} from '@ngrx/store';
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import {
+  SnackBarMainComponent,
+  SnackBarComponent,
+} from "./shared/snackbar/snack-bar.component";
+import { StoreModule } from "@ngrx/store";
 
-import * as fromApp from "./store/app.reducer"
-import {EffectsModule} from '@ngrx/effects';
-import {AuthEffects} from './login-dialog/store/auth.effects';
+import * as fromApp from "./store/app.reducer";
+import { EffectsModule } from "@ngrx/effects";
+import { AuthEffects } from "./login-dialog/store/auth.effects";
 
 @NgModule({
   declarations: [
@@ -79,7 +82,6 @@ import {AuthEffects} from './login-dialog/store/auth.effects';
     EditUserDialogOverviewDialog,
     SnackBarMainComponent,
     SnackBarComponent,
-    
   ],
   imports: [
     StoreModule.forRoot(fromApp.appReducer),
@@ -106,11 +108,11 @@ import {AuthEffects} from './login-dialog/store/auth.effects';
       databaseURL: "https://abztesttask.firebaseio.com",
       storageBucket: "abztesttask.appspot.com",
       projectId: "abztesttask",
-      messagingSenderId: "1001346095032"
+      messagingSenderId: "1001346095032",
     }),
     AngularFireStorageModule,
   ],
   providers: [HttpService, CheerfUserService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

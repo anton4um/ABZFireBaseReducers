@@ -18,7 +18,6 @@ export function authReducer(
 ) {
   switch (action.type) {
     case AuthActions.AUTHENTICATE_SUCCESS:
-      console.log("Hello from Login");
       const user = new UserSigne(
         action.payload.email,
         action.payload.userId,
@@ -34,21 +33,21 @@ export function authReducer(
         return {
             ...state,
             user: null,
-        }  
+        }
     case AuthActions.LOGIN_START:
     case AuthActions.SIGNUP_START:
         return {
             ...state,
             authError: null,
             isLoading: true,
-        }    
-    case AuthActions.AUTHENTICATE_FALE: 
+        }
+    case AuthActions.AUTHENTICATE_FALE:
         return {
             ...state,
             authError: action.payload,
             isLoading: false,
-        }    
-    default: 
-        return state    
+        }
+    default:
+        return state
   }
 }

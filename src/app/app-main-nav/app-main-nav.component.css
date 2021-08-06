@@ -1,34 +1,32 @@
-hr{
+hr {
   margin-top: 1.5rem;
   margin-bottom: 0;
 }
-a.nav-item.nav-link{
-  /*text-transform: none;*/
+a.nav-item.nav-link {
   padding-right: 0;
   color: black;
 }
-a.nav-item.nav-link :hover{
-  /*text-transform: none;*/
+a.nav-item.nav-link :hover {
   padding-right: 0;
   color: coral !important;
 }
-ul>li>a{
-  font-size: 1.5vw
+ul > li > a {
+  font-size: 1.5vw;
 }
 .super-user-data > a {
-  font-size: 1.4vw
+  font-size: 1.4vw;
 }
-.super-user-data > p{
+.super-user-data > p {
   line-height: 20px;
   margin-top: 20px;
-  font-size: 1.4vw
+  font-size: 1.4vw;
 }
-.user-data > p{
+.user-data > p {
   line-height: 18px;
   margin-top: 15px;
   font-size: 15px;
 }
-.user-data{
+.user-data {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,46 +51,43 @@ ul>li>a{
   background: white;
   color: black;
 }
-.hidden{
+.hidden {
   display: none;
 }
-.sign-out-img-align{
+.sign-out-img-align {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.logo-img-align{
+.logo-img-align {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.user-img-align{
+.user-img-align {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
-.text-left{
+.text-left {
   margin-top: 160px;
 }
-.user-name{
+.user-name {
   margin-bottom: 0px;
 }
-mat-nav-list{
+mat-nav-list {
   margin-top: 140px;
 }
-/*.spacer{*/
-  /*flex: 1 1 auto;*/
-/*}*/
-.logo-img{
+
+.logo-img {
   height: 25px;
 }
-.main-menu-links{
+.main-menu-links {
   margin-top: 7px;
   text-transform: none;
 }
-.user-data{
+.user-data {
   line-height: 5px;
   font-size: 10px;
 }

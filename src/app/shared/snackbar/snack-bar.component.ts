@@ -6,7 +6,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
  */
 @Component({
   selector: "app-snack-bar-component",
-  template: ""
+  template: "",
 })
 export class SnackBarMainComponent {
   durationInSeconds = 5;
@@ -15,7 +15,7 @@ export class SnackBarMainComponent {
 
   public openSnackBar() {
     this._snackBar.openFromComponent(SnackBarComponent, {
-      duration: this.durationInSeconds * 1000
+      duration: this.durationInSeconds * 1000,
     });
   }
 }
@@ -23,6 +23,6 @@ export class SnackBarMainComponent {
 @Component({
   selector: "app-snack-bar-component-snack",
   templateUrl: "./snack-bar.component.html",
-  styleUrls: ["./snack-bar.component.css"]
+  styleUrls: ["./snack-bar.component.css"],
 })
 export class SnackBarComponent {}
